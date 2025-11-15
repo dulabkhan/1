@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Craft Myst - سرور ماینکرفت</title>
+<style>
+  body{font-family:sans-serif;background:#0b1220;color:#f3f6fa;margin:0;padding:0;text-align:center}
+  header{background:#162240;padding:20px 0}
+  h1{margin:0;font-size:2rem;color:#58a6ff}
+  .content{max-width:700px;margin:40px auto;padding:20px;background:#111a33;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.4)}
+  .btn{display:inline-block;margin-top:20px;padding:10px 18px;border-radius:8px;background:#1f6feb;color:white;text-decoration:none}
+  footer{margin-top:50px;color:#888;font-size:.9rem}
+</style>
+</head>
+<body>
+  <header><h1>🎮 Craft Myst</h1></header>
+  <div class="content">
+    <h2>به سرور رسمی ماینکرفت Craft Myst خوش اومدی!</h2>
+    <p>یه سرور فان و دوستانه برای پلیرهای ایرانی 🎉</p>
+    <p>🌐 آی‌پی سرور: <b id="ip">YOUR_SERVER_IP:PORT</b></p>
+    <a class="btn" href="minecraft://connect/YOUR_SERVER_IP:PORT">اتصال به سرور</a>
+
+    <div id="status" style="margin-top:30px;font-size:1.1rem;">
+      وضعیت سرور: <span id="server-state">در حال بررسی...</span><br>
+      بازیکنان آنلاین: <span id="players-count">—</span>
+    </div>
+  </div>
+  <footer>
+    <p>© 2025 Craft Myst | ساخته‌شده با ❤️ و GitHub Pages</p>
+  </footer>
+
+<script>
+const server = "YOUR_SERVER_IP:PORT"; // <-- آدرس سرور رو اینجا بذار
+fetch(`https://api.mcsrvstat.us/2/${encodeURIComponent(server)}`)
+.then(r=>r.json())
+.then(data=>{
+  document.getElementById("server-state").textContent = data.online ? "آنلاین ✅" : "آفلاین ❌";
+  document.getElementById("players-count").textContent = data.online ? `${data.players?.online ?? 0}/${data.players?.max ?? 0}` : "۰";
+})
+.catch(()=>{
+  document.getElementById("server-state").textContent = "خطا در دریافت اطلاعات";
+});
+</script>
+</body>
+</html>
